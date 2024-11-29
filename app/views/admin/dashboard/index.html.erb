@@ -1,0 +1,23 @@
+<h1>Адмін-панель</h1>
+
+<p>Ласкаво просимо, <%= current_user.name %>!</p>
+
+<h2>Список користувачів</h2>
+<table>
+  <thead>
+  <tr>
+    <th>Ім'я</th>
+    <th>Email</th>
+    <th>Роль</th>
+  </tr>
+  </thead>
+  <tbody>
+  <% @users.each do |user| %>
+    <tr>
+      <td><%= user.name %></td>
+      <td><%= user.email %></td>
+      <td><%= user.role %></td>
+    </tr>
+  <% end %>
+  </tbody>
+</table>
