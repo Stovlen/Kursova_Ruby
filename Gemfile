@@ -11,6 +11,8 @@ gem "sprockets-rails"
 
 gem 'pg', '~> 1.4'
 
+gem 'bcrypt', '~> 3.1.7'
+
 gem 'bootsnap', require: false
 
 # Use the Puma web server [https://github.com/puma/puma]
