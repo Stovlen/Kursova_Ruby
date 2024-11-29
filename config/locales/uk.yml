@@ -1,0 +1,25 @@
+uk:
+  activerecord:
+    errors:
+      models:
+        user:
+          attributes:
+            name:
+              blank: "не може бути порожнім"
+              invalid: "може містити лише кириличні літери"
+            email:
+              blank: "не може бути порожнім"
+              invalid: "повинен закінчуватись на '@gmail.com'"
+            password:
+              blank: "не може бути порожнім"
+              too_short: "повинен містити щонайменше %{count} символів"
+      messages:
+        record_invalid: "Перевірте введені дані"
+  errors:
+    format: "%{attribute} %{message}"
+    template:
+      header:
+        one: "Знайдена 1 помилка"
+        few: "Знайдено %{count} помилки"
+        many: "Знайдено %{count} помилок"
+      body: "Будь ласка, перевірте наступні поля:"

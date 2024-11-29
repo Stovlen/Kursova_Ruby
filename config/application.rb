@@ -11,10 +11,14 @@ module Kursova12
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 7.1
 
-    # Please, add to the `ignore` list any other `lib` subdirectories that do
-    # not contain `.rb` files, or that should not be reloaded or eager loaded.
-    # Common ones are `templates`, `generators`, or `middleware`, for example.
+    # Add autoload paths for libraries (example: ignore assets/tasks in lib)
     config.autoload_lib(ignore: %w(assets tasks))
+
+    # Set default locale to Ukrainian
+    config.i18n.default_locale = :uk
+
+    # Ensure available locales include Ukrainian
+    config.i18n.available_locales = [:uk, :en]
 
     # Configuration for the application, engines, and railties goes here.
     #
