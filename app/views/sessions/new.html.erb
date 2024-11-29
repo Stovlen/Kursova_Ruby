@@ -1,0 +1,16 @@
+<h1>Увійти</h1>
+<%= form_with url: sessions_path, local: true do |form| %>
+  <div>
+    <%= form.label :email, "Email" %>
+    <%= form.email_field :email %>
+  </div>
+  <div>
+    <%= form.label :password, "Пароль" %>
+    <%= form.password_field :password %>
+  </div>
+  <div>
+    <%= form.submit "Увійти" %>
+  </div>
+<% end %>
+
+<p>Немає акаунту? <%= link_to 'Реєстрація', new_user_path %></p>
