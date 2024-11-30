@@ -1,15 +1,41 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>Kursova12</title>
-    <meta name="viewport" content="width=device-width,initial-scale=1">
-    <%= csrf_meta_tags %>
-    <%= csp_meta_tag %>
+<head>
+  <title>Магазин Сухофруктів</title>
+  <%= csrf_meta_tags %>
+  <%= csp_meta_tag %>
 
-    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
-  </head>
+  <%= stylesheet_link_tag "application", media: "all", "data-turbo-track": "reload" %>
+  <%= javascript_include_tag "application", "data-turbo-track": "reload" %>
+</head>
 
-  <body>
-    <%= yield %>
-  </body>
+<body>
+<header>
+  <div class="header-container">
+    <h1><%= link_to "Магазин Сухофруктів", root_path %></h1>
+
+    <nav class="header-navigation">
+      <% if current_user %>
+        <span>Вітаємо, <%= current_user.name %>!</span>
+        <% unless current_page?(root_path) %>
+          <%= link_to "На головну", root_path, class: "button" %>
+        <% end %>
+        <%= button_to "Вийти", logout_path, method: :delete, class: "button" %>
+      <% else %>
+        <%= link_to "Увійти", new_session_path, class: "button" %>
+        <%= link_to "Зареєструватися", register_path, class: "button" %>
+      <% end %>
+    </nav>
+  </div>
+</header>
+
+
+<main>
+  <%= yield %>
+</main>
+
+<footer>
+  <p>&copy; 2024 Магазин Сухофруктів</p>
+</footer>
+</body>
 </html>
