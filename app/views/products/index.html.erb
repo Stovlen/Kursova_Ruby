@@ -19,11 +19,12 @@
 <div class="products-grid">
   <% @products.each do |product| %>
     <div class="product-card">
-      <%= image_tag(product.image_url, alt: product.name, class: "product-image") %>
-      <h3><%= product.name %></h3>
+      <%= link_to image_tag(product.image_url, alt: product.name), product_path(product) %>
+      <h3><%= link_to product.name, product_path(product) %></h3>
       <p><%= number_to_currency(product.price, unit: "₴") %></p>
-      <%= link_to "Купити", product_path(product), class: "buy-button" %>
+      <%= link_to "Купити", "#", class: "buy-button" %>
     </div>
   <% end %>
 </div>
+
 

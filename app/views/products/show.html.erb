@@ -1,2 +1,35 @@
-<h1>Products#show</h1>
-<p>Find me in app/views/products/show.html.erb</p>
+<%= link_to "Головна", root_path %> / <%= @product.category %> / <%= @product.name %>
+
+<div class="product-details">
+  <div class="product-image">
+    <%= image_tag @product.image_url, alt: @product.name %>
+  </div>
+
+  <div class="product-info">
+    <h1><%= @product.name %></h1>
+    <p><strong>Артикул:</strong> <%= @product.id %></p>
+
+    <p><strong>Харчова цінність на 100 г продукту:</strong></p>
+    <ul>
+      <li>Білки: <%= @product.proteins || "н/д" %> г</li>
+      <li>Жири: <%= @product.fats || "н/д" %> г</li>
+      <li>Вуглеводи: <%= @product.carbs || "н/д" %> г</li>
+    </ul>
+
+    <p><strong>Енергетична цінність:</strong> <%= @product.energy || "н/д" %> ккал</p>
+
+    <div class="product-price">
+      <p><%= number_to_currency(@product.price, unit: "₴") %></p>
+      <%= link_to "Додати в кошик", "#", class: "add-to-cart-button" %>
+    </div>
+  </div>
+</div>
+
+<hr>
+
+<h2>Опис</h2>
+<p>Країна виробник: <strong><%= @product.country || "н/д" %></strong></p>
+<p>Тип обробки: <strong><%= @product.processing_type || "н/д" %></strong></p>
+<p>Наявність цукру: <strong><%= @product.sugar_content || "н/д" %></strong></p>
+
+<p><%= @product.description %></p>
