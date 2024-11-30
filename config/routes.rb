@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get 'products/index'
+  get 'products/show'
   resources :users, only: [:new, :create]
   resources :sessions, only: [:new, :create, :destroy]
 
@@ -6,5 +8,6 @@ Rails.application.routes.draw do
   get '/register', to: 'users#new', as: :register
   delete '/logout', to: 'sessions#destroy', as: :logout
 
-  root "sessions#new" # Головна сторінка — форма входу
+  root "products#index" # Призначаємо Головну сторінку
+  resources :products, only: [:index, :show] # Маршрути для перегляду продуктів
 end

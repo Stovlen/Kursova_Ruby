@@ -1,0 +1,29 @@
+<h1>Інтернет-магазин</h1>
+
+<div class="search-bar">
+  <%= form_with url: root_path, method: :get, local: true do |form| %>
+    <%= form.text_field :query, placeholder: "Пошук товарів", class: "search-input" %>
+    <%= form.submit "🔍", class: "search-button" %>
+  <% end %>
+</div>
+
+<div class="filters">
+  <h3>Фільтри</h3>
+  <ul>
+    <li><%= link_to "Усі", root_path %></li>
+    <li><%= link_to "Абрикоси", root_path(category: "Абрикоси") %></li>
+    <li><%= link_to "Сливи", root_path(category: "Сливи") %></li>
+  </ul>
+</div>
+
+<div class="products-grid">
+  <% @products.each do |product| %>
+    <div class="product-card">
+      <%= image_tag(product.image_url, alt: product.name, class: "product-image") %>
+      <h3><%= product.name %></h3>
+      <p><%= number_to_currency(product.price, unit: "₴") %></p>
+      <%= link_to "Купити", product_path(product), class: "buy-button" %>
+    </div>
+  <% end %>
+</div>
+
