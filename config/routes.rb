@@ -27,4 +27,8 @@ Rails.application.routes.draw do
 
   patch '/cart/update/:product_id', to: 'carts#update_quantity', as: :update_cart_quantity
 
+  resources :products do
+    resources :reviews, only: [:create]
+  end
+
 end

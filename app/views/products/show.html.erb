@@ -33,3 +33,33 @@
 <p>Наявність цукру: <strong><%= @product.sugar_content || "н/д" %></strong></p>
 
 <p><%= @product.description %></p>
+
+<h2>Відгуки</h2>
+
+<% if @product.reviews.any? %>
+  <ul>
+    <% @product.reviews.each do |review| %>
+      <li>
+        <p><strong><%= review.name %>:</strong> <%= review.comment %></p>
+      </li>
+    <% end %>
+  </ul>
+<% else %>
+  <p>Поки що немає відгуків. Будьте першим!</p>
+<% end %>
+
+<h3>Додати відгук</h3>
+<%= form_with(model: [@product, @product.reviews.build], local: true) do |f| %>
+  <div>
+    <%= f.label :name, "Ваше ім'я:" %>
+    <%= f.text_field :name, required: true %>
+  </div>
+  <div>
+    <%= f.label :comment, "Коментар:" %>
+    <%= f.text_area :comment, required: true %>
+  </div>
+  <div>
+    <%= f.submit "Надіслати", class: "btn btn-primary" %>
+  </div>
+<% end %>
+
