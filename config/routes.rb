@@ -31,4 +31,6 @@ Rails.application.routes.draw do
     resources :reviews, only: [:create]
   end
 
+  get '/search', to: 'products#search', as: :search_products
+
 end

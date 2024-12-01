@@ -7,6 +7,10 @@
   <% end %>
 </div>
 
+<% if params[:query].present? %>
+  <p>По запиту «<%= params[:query] %>» знайшлося <%= @products.count %> товарів</p>
+<% end %>
+
 <div class="filters">
   <h3>Фільтри</h3>
   <ul>
@@ -31,8 +35,3 @@
     </div>
   <% end %>
 </div>
-
-
-
-
-
