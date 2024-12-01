@@ -5,6 +5,8 @@
   <p>Перейдіть до головної сторінки та скористайтеся пошуком, або каталогом, щоб знайти все, що потрібно.</p>
   <%= link_to 'Перейти до головної', root_path, class: 'btn btn-success' %>
 <% else %>
+  <%= button_to "Очистити кошик", clear_cart_path, method: :delete, class: "btn btn-danger" %>
+
   <ul>
     <% @products.each do |product| %>
       <li>

@@ -23,4 +23,7 @@ Rails.application.routes.draw do
   post '/cart/add/:product_id', to: 'carts#add', as: :add_to_cart
   delete '/cart/remove/:product_id', to: 'carts#remove', as: :remove_from_cart
 
+  delete '/cart/clear', to: 'carts#clear', as: :clear_cart
+
+
 end

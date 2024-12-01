@@ -23,4 +23,9 @@ class CartsController < ApplicationController
 
     redirect_to cart_path, notice: 'Товар видалено з кошика!'
   end
+
+  def clear
+    session[:cart] = {}
+    redirect_to cart_path, notice: 'Кошик успішно очищено!'
+  end
 end

@@ -46,3 +46,18 @@
 .add-to-cart-button:hover {
     background-color: #218838;
 }
+
+.btn-danger {
+    background-color: #dc3545;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.btn-danger:hover {
+    background-color: #c82333;
+    color: white;
+}
