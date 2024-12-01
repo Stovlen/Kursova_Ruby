@@ -20,7 +20,7 @@
 
     <div class="product-price">
       <p><%= number_to_currency(@product.price, unit: "₴") %></p>
-      <%= link_to "Додати в кошик", "#", class: "add-to-cart-button" %>
+      <%= button_to "Додати в кошик", add_to_cart_path(product_id: @product.id), method: :post, class: "add-to-cart-button" %>
     </div>
   </div>
 </div>

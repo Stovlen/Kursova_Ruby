@@ -33,3 +33,12 @@
 .add-to-cart-button:hover {
     background-color: #218838;
 }
+
+.product-details ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.product-details ul li {
+    margin: 5px 0;
+}

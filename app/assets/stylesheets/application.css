@@ -29,3 +29,20 @@
     margin-right: 10px;
     font-weight: bold;
 }
+
+/* Стилі для кнопки "Додати в кошик" */
+.add-to-cart-button {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #28a745;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    text-decoration: none;
+    font-size: 1rem;
+    cursor: pointer;
+}
+
+.add-to-cart-button:hover {
+    background-color: #218838;
+}

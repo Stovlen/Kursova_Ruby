@@ -1,0 +1,19 @@
+<h1>Кошик</h1>
+
+<% if @cart.blank? %>
+  <p>Кошик порожній</p>
+  <p>Перейдіть до головної сторінки та скористайтеся пошуком, або каталогом, щоб знайти все, що потрібно.</p>
+  <%= link_to 'Перейти до головної', root_path, class: 'btn btn-success' %>
+<% else %>
+  <ul>
+    <% @products.each do |product| %>
+      <li>
+        <%= image_tag product.image_url, width: 50 %>
+        <%= product.name %> - <%= @cart[product.id.to_s] %> шт.
+        <%= button_to 'Видалити', remove_from_cart_path(product_id: product.id), method: :delete, class: 'btn btn-danger btn-sm' %>
+      </li>
+    <% end %>
+  </ul>
+
+  <%= link_to 'Оформити замовлення', '#', class: 'btn btn-primary' %>
+<% end %>

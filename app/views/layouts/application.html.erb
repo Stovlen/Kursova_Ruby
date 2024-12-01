@@ -20,14 +20,17 @@
         <% unless current_page?(root_path) %>
           <%= link_to "На головну", root_path, class: "button" %>
         <% end %>
+        <%= link_to "Кошик", cart_path, class: "button" %>
         <%= button_to "Вийти", logout_path, method: :delete, class: "button" %>
       <% else %>
         <%= link_to "Увійти", new_session_path, class: "button" %>
         <%= link_to "Зареєструватися", register_path, class: "button" %>
+        <%= link_to "Кошик", cart_path, class: "button" %>
       <% end %>
     </nav>
   </div>
 </header>
+
 
 
 <main>

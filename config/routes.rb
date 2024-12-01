@@ -1,4 +1,7 @@
 Rails.application.routes.draw do
+  get 'carts/show'
+  get 'carts/add'
+  get 'carts/remove'
   # Головна сторінка магазину
   root "products#index"
 
@@ -15,4 +18,9 @@ Rails.application.routes.draw do
 
   # Сторінка привітання
   get '/welcome', to: 'pages#welcome', as: :welcome
+
+  get '/cart', to: 'carts#show', as: :cart
+  post '/cart/add/:product_id', to: 'carts#add', as: :add_to_cart
+  delete '/cart/remove/:product_id', to: 'carts#remove', as: :remove_from_cart
+
 end
