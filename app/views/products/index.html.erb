@@ -22,9 +22,10 @@
       <%= link_to image_tag(product.image_url, alt: product.name), product_path(product) %>
       <h3><%= link_to product.name, product_path(product) %></h3>
       <p><%= number_to_currency(product.price, unit: "₴") %></p>
-      <%= link_to "Купити", "#", class: "buy-button" %>
+      <%= button_to "Додати до кошика", add_to_cart_path(product_id: product.id), method: :post, class: "add-to-cart-button" %>
     </div>
   <% end %>
 </div>
+
 
 
