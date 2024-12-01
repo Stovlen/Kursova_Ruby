@@ -28,4 +28,32 @@ class CartsController < ApplicationController
     session[:cart] = {}
     redirect_to cart_path, notice: 'Кошик успішно очищено!'
   end
+
+  def update_quantity
+    product_id = params[:product_id]
+    quantity = params[:quantity].to_i
+
+    if quantity.between?(1, 10)
+      session[:cart][product_id] = quantity
+      @product = Product.find(product_id)
+      total_price = calculate_total_price
+
+      render json: {
+        item_price: helpers.number_to_currency(@product.price * session[:cart][product_id], unit: "₴"),
+        total_price: helpers.number_to_currency(total_price, unit: "₴")
+      }
+    else
+      head :unprocessable_entity
+    end
+  end
+
+  private
+
+  def calculate_total_price
+    session[:cart].sum do |product_id, quantity|
+      product = Product.find(product_id)
+      product.price * quantity
+    end
+  end
+
 end

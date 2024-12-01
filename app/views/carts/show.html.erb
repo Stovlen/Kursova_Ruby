@@ -1,4 +1,4 @@
-<h1>Кошик</h1>
+<h1>Кошик (<span id="cart-total-price"><%= number_to_currency(@products.sum { |product| product.price * @cart[product.id.to_s] }, unit: "₴") %></span>)</h1>
 
 <% if @cart.blank? %>
   <p>Кошик порожній</p>
@@ -9,13 +9,26 @@
 
   <ul>
     <% @products.each do |product| %>
-      <li>
-        <%= image_tag product.image_url, width: 50 %>
-        <%= product.name %> - <%= @cart[product.id.to_s] %> шт.
-        <%= button_to 'Видалити', remove_from_cart_path(product_id: product.id), method: :delete, class: 'btn btn-danger btn-sm' %>
+      <li class="cart-item">
+        <div>
+          <%= image_tag product.image_url, width: 80 %>
+        </div>
+        <div>
+          <p><%= product.name %></p>
+          <div class="quantity-controls">
+            <button class="quantity-button" data-action="decrease" data-product-id="<%= product.id %>">-</button>
+            <input type="number" class="quantity-input" value="<%= @cart[product.id.to_s] %>" data-product-id="<%= product.id %>" min="1" max="10">
+            <button class="quantity-button" data-action="increase" data-product-id="<%= product.id %>">+</button>
+          </div>
+          <p id="item-price-<%= product.id %>"><%= number_to_currency(product.price * @cart[product.id.to_s], unit: "₴") %></p>
+        </div>
+        <div>
+          <%= button_to 'Видалити', remove_from_cart_path(product_id: product.id), method: :delete, class: 'btn btn-danger btn-sm' %>
+        </div>
       </li>
     <% end %>
   </ul>
 
+  <p><strong>Загальна сума:</strong> <span id="cart-total-price"><%= number_to_currency(@products.sum { |product| product.price * @cart[product.id.to_s] }, unit: "₴") %></span></p>
   <%= link_to 'Оформити замовлення', '#', class: 'btn btn-primary' %>
 <% end %>

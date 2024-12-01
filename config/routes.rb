@@ -25,5 +25,6 @@ Rails.application.routes.draw do
 
   delete '/cart/clear', to: 'carts#clear', as: :clear_cart
 
+  patch '/cart/update/:product_id', to: 'carts#update_quantity', as: :update_cart_quantity
 
 end
