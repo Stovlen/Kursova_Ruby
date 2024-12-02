@@ -33,4 +33,8 @@ Rails.application.routes.draw do
 
   get '/search', to: 'products#search', as: :search_products
 
+  get '/checkout', to: 'orders#new', as: :checkout
+  post '/checkout', to: 'orders#create'
+
+
 end
