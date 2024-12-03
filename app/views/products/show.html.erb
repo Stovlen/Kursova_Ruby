@@ -34,19 +34,33 @@
 
 <p><%= @product.description %></p>
 
-<h2>Відгуки</h2>
+<hr>
 
+<h2>Відгуки</h2>
 <% if @product.reviews.any? %>
   <ul>
-    <% @product.reviews.each do |review| %>
+    <% @product.reviews.uniq.each do |review| %>
       <li>
-        <p><strong><%= review.name %>:</strong> <%= review.comment %></p>
+        <strong><%= review.name %>:</strong> <%= review.comment %>
+        <% if review.admin_response.present? %>
+          <p><strong>Адмін відповідає:</strong> <%= review.admin_response %></p>
+        <% end %>
+
+        <% if current_user&.role == "admin" || current_user&.admin? %>
+          <%= form_with model: review, url: admin_review_path(review), method: :patch, local: true do |f| %>
+            <%= f.label :admin_response, "Відповідь адміністратора:" %>
+            <%= f.text_area :admin_response, rows: 2, class: "form-control" %>
+            <%= f.submit "Відповісти", class: "btn btn-primary" %>
+          <% end %>
+        <% end %>
       </li>
     <% end %>
   </ul>
 <% else %>
   <p>Поки що немає відгуків. Будьте першим!</p>
 <% end %>
+
+<hr>
 
 <h3>Додати відгук</h3>
 <%= form_with(model: [@product, @product.reviews.build], local: true) do |f| %>
@@ -62,4 +76,3 @@
     <%= f.submit "Надіслати", class: "btn btn-primary" %>
   </div>
 <% end %>
-

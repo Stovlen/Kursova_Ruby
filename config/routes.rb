@@ -50,6 +50,7 @@ Rails.application.routes.draw do
     get '/dashboard', to: 'dashboard#index', as: :dashboard
     resources :users, only: [:new, :create]
     resources :feedbacks, only: [:index]
+    resources :reviews, only: [:update]
   end
 
 end
