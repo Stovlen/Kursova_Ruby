@@ -45,4 +45,11 @@ Rails.application.routes.draw do
   get '/feedback', to: 'feedbacks#new', as: :feedback
   post '/feedback', to: 'feedbacks#create'
 
+  # Адмін-панель
+  namespace :admin do
+    get '/dashboard', to: 'dashboard#index', as: :dashboard
+    resources :users, only: [:new, :create]
+    resources :feedbacks, only: [:index]
+  end
+
 end

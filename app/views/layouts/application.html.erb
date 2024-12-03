@@ -17,7 +17,13 @@
 
     <nav class="header-navigation">
       <% if current_user %>
-        <span>Вітаємо, <%= current_user.name %>!</span>
+        <% if current_user.role == "admin" || current_user.admin? %>
+          <span>Вітаємо, Адмін!</span>
+          <%= link_to "Адмін-панель", admin_dashboard_path, class: "button" %>
+        <% else %>
+          <span>Вітаємо, <%= current_user.name %>!</span>
+        <% end %>
+
         <% unless current_page?(root_path) %>
           <%= link_to "На головну", root_path, class: "button" %>
         <% end %>
