@@ -1,0 +1,22 @@
+<h1>Зворотний зв'язок</h1>
+
+<table>
+  <thead>
+  <tr>
+    <th>Ім'я користувача</th>
+    <th>Тема</th>
+    <th>Повідомлення</th>
+    <th>Дата</th>
+  </tr>
+  </thead>
+  <tbody>
+  <% @feedbacks.each do |feedback| %>
+    <tr>
+      <td><%= feedback.user.name %> (<%= feedback.user.email %>)</td>
+      <td><%= feedback.subject %></td>
+      <td><%= feedback.message %></td>
+      <td><%= feedback.created_at.strftime('%d.%m.%Y %H:%M') %></td>
+    </tr>
+  <% end %>
+  </tbody>
+</table>
