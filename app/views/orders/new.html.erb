@@ -1,20 +1,20 @@
 <h1>Оформлення замовлення</h1>
 
-<%= form_with model: @order, url: checkout_path, local: true do |f| %>
-  <fieldset>
-    <legend>Доставка</legend>
-    <div>
-      <label>
-        <%= f.radio_button :delivery_option, 'Нова Пошта', checked: true %>
-        Нова Пошта
-      </label>
-    </div>
-    <div>
-      <%= f.label :branch, 'Відділення Нової Пошти:' %>
-      <%= f.select :branch, options_for_select(@branches), required: true %>
-    </div>
-  </fieldset>
+<div class="cart-summary">
+  <h2>Ваше замовлення:</h2>
+  <ul>
+    <% @products.each do |product| %>
+      <li>
+        <%= image_tag product.image_url, width: 50 %>
+        <%= product.name %> - <%= @cart[product.id.to_s] %> шт.
+        <span><%= number_to_currency(product.price * @cart[product.id.to_s].to_i, unit: "₴") %></span>
+      </li>
+    <% end %>
+  </ul>
+  <p><strong>Загальна сума: <%= number_to_currency(@total_price, unit: "₴") %></strong></p>
+</div>
 
+<%= form_with model: @order, url: checkout_path, local: true do |f| %>
   <fieldset>
     <legend>Дані клієнта</legend>
     <div>
@@ -31,7 +31,7 @@
     </div>
     <div>
       <%= f.label :email, 'E-mail:' %>
-      <%= f.email_field :email, value: @user_email, required: false %> <!-- Пусте, якщо користувач неавторизований -->
+      <%= f.email_field :email, value: @user_email, required: false %>
     </div>
   </fieldset>
 

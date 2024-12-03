@@ -154,6 +154,14 @@ input, select {
     border-radius: 4px;
 }
 
+/* .form-select {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+} */
+
 
 .btn-primary {
     background-color: #28a745;
@@ -167,3 +175,33 @@ input, select {
 .btn-primary:hover {
     background-color: #218838;
 }
+
+.cart-summary {
+    margin-bottom: 20px;
+    padding: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.cart-summary ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.cart-summary ul li {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.cart-summary ul li img {
+    margin-right: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+.cart-summary p {
+    font-weight: bold;
+    font-size: 1.2em;
+}
+

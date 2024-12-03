@@ -36,5 +36,6 @@ Rails.application.routes.draw do
   get '/checkout', to: 'orders#new', as: :checkout
   post '/checkout', to: 'orders#create'
 
+  # get '/orders/branches', to: 'orders#branches'
 
 end

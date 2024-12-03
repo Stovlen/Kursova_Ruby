@@ -1,9 +1,18 @@
 class OrdersController < ApplicationController
   def new
     @order = Order.new
-    @user_email = current_user&.email # Якщо користувач авторизований, підставляємо email
-    @branches = fetch_nova_poshta_branches # Отримуємо список відділень Нової Пошти
+    @user_email = current_user&.email # Якщо користувач авторизований
+    @cart = session[:cart] || {} # Отримуємо дані кошика із сесії
+    @products = Product.where(id: @cart.keys) # Завантажуємо товари з бази за ID у кошику
+    @total_price = calculate_total_price(@products, @cart) # Розраховуємо загальну суму
   end
+
+  private
+
+  def calculate_total_price(products, cart)
+    products.sum { |product| product.price * cart[product.id.to_s].to_i }
+  end
+
 
   def create
     @order = Order.new(order_params)
@@ -29,20 +38,20 @@ class OrdersController < ApplicationController
   end
 
   # Метод для отримання відділень Нової Пошти через API
-  def fetch_nova_poshta_branches
-    api_key = 'e230aeb058a424ca3bd19ad0670ec7cd' # Вставте ваш реальний API-ключ
-    url = 'https://api.novaposhta.ua/v2.0/json/'
-    response = HTTP.post(url, json: {
-      "apiKey": api_key,
-      "modelName": "AddressGeneral",
-      "calledMethod": "getWarehouses",
-      "methodProperties": {}
-    })
-
-    data = JSON.parse(response.body.to_s)
-    data['data'].map { |branch| branch['Description'] } # Повертаємо список відділень
-  rescue StandardError => e
-    Rails.logger.error("Помилка отримання відділень: #{e.message}")
-    []
-  end
+  # def fetch_nova_poshta_branches
+  #   api_key = 'e230aeb058a424ca3bd19ad0670ec7cd' # Вставте ваш реальний API-ключ
+  #   url = 'https://api.novaposhta.ua/v2.0/json/'
+  #   response = HTTP.post(url, json: {
+  #     "apiKey": api_key,
+  #     "modelName": "AddressGeneral",
+  #     "calledMethod": "getWarehouses",
+  #     "methodProperties": {}
+  #   })
+  #
+  #   data = JSON.parse(response.body.to_s)
+  #   data['data'].map { |branch| branch['Description'] } # Повертаємо список відділень
+  # rescue StandardError => e
+  #   Rails.logger.error("Помилка отримання відділень: #{e.message}")
+  #   []
+  # end
 end

@@ -30,5 +30,5 @@
   </ul>
 
   <p><strong>Загальна сума:</strong> <span id="cart-total-price"><%= number_to_currency(@products.sum { |product| product.price * @cart[product.id.to_s] }, unit: "₴") %></span></p>
-  <%= link_to 'Оформити замовлення', '#', class: 'btn btn-primary' %>
+  <%= link_to 'Оформити замовлення', checkout_path, class: 'btn btn-primary' %>
 <% end %>
