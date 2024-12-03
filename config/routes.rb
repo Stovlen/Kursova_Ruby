@@ -38,4 +38,8 @@ Rails.application.routes.draw do
 
   # get '/orders/branches', to: 'orders#branches'
 
+  get '/about', to: 'pages#about', as: :about
+  get '/contact', to: 'pages#contact', as: :contact
+  get '/privacy', to: 'pages#privacy', as: :privacy
+
 end

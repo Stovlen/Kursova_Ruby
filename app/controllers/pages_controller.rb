@@ -14,4 +14,14 @@ class PagesController < ApplicationController
   def current_user
     @current_user ||= User.find_by(id: session[:user_id])
   end
+
+  def about
+  end
+
+  def contact
+  end
+
+  def privacy
+  end
+
 end

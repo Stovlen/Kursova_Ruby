@@ -15,7 +15,6 @@ gem 'bcrypt', '~> 3.1.7'
 
 gem 'http'
 
-
 gem 'bootsnap', require: false
 
 # Use the Puma web server [https://github.com/puma/puma]
