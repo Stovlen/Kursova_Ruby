@@ -1,0 +1,17 @@
+<h1>Зворотний зв'язок</h1>
+
+<%= form_with model: Feedback.new, url: feedback_path, method: :post, local: true do |f| %>
+  <div>
+    <%= f.label :subject, 'Тема повідомлення:' %>
+    <%= f.text_field :subject, required: true, class: 'form-control' %>
+  </div>
+
+  <div>
+    <%= f.label :message, 'Текст повідомлення:' %>
+    <%= f.text_area :message, required: true, rows: 5, class: 'form-control' %>
+  </div>
+
+  <div>
+    <%= f.submit 'Надіслати', class: 'btn btn-primary' %>
+  </div>
+<% end %>

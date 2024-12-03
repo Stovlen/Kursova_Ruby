@@ -42,4 +42,7 @@ Rails.application.routes.draw do
   get '/contact', to: 'pages#contact', as: :contact
   get '/privacy', to: 'pages#privacy', as: :privacy
 
+  get '/feedback', to: 'feedbacks#new', as: :feedback
+  post '/feedback', to: 'feedbacks#create'
+
 end
