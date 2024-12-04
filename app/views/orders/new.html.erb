@@ -27,10 +27,13 @@
     </div>
     <div>
       <%= f.label :phone, "Телефон:" %>
-      <%= f.telephone_field :phone, required: true %>
+      <%= f.telephone_field :phone, placeholder: "+380 (___) ___-____",
+                            required: true,
+                            class: "phone-input",
+                            pattern: "\\+380 \\(\\d{3}\\) \\d{3}-\\d{4}" %>
     </div>
     <div>
-      <%= f.label :email, 'E-mail:' %>
+      <%= f.label :email, 'E-mail(необовязково):' %>
       <%= f.email_field :email, value: @user_email, required: false %>
     </div>
   </fieldset>
@@ -53,6 +56,6 @@
   </fieldset>
 
   <div>
-    <%= f.submit 'Оформити замовлення', class: 'btn btn-primary' %>
+    <%= link_to 'Оформити замовлення', new_payment_path, class: 'btn btn-primary' %>
   </div>
 <% end %>

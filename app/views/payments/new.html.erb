@@ -1,0 +1,40 @@
+<h1>Оплата товару</h1>
+
+<%= form_with url: payments_path, method: :post, local: true do |f| %>
+  <div class="form-group">
+    <%= f.label :card_number, "Номер картки" %>
+    <%= f.text_field :card_number,
+                     placeholder: "0000 0000 0000 0000",
+                     required: true,
+                     maxlength: 19,
+                     pattern: "\\d{4} \\d{4} \\d{4} \\d{4}",
+                     title: "Номер картки повинен бути у форматі: 0000 0000 0000 0000",
+                     class: "form-control" %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :expiry_date, "Термін дії" %>
+    <%= f.text_field :expiry_date,
+                     placeholder: "MM/YY",
+                     required: true,
+                     maxlength: 5,
+                     pattern: "(0[1-9]|1[0-2])\\/\\d{2}",
+                     title: "Термін дії повинен бути у форматі MM/YY",
+                     class: "form-control" %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :cvv, "CVV2" %>
+    <%= f.password_field :cvv,
+                         placeholder: "...",
+                         required: true,
+                         maxlength: 3,
+                         pattern: "\\d{3}",
+                         title: "CVV повинен складатися з 3 цифр",
+                         class: "form-control" %>
+  </div>
+
+  <div>
+    <%= f.submit "Оплатити", class: "btn btn-success btn-block" %>
+  </div>
+<% end %>

@@ -53,4 +53,7 @@ Rails.application.routes.draw do
     resources :reviews, only: [:update]
   end
 
+  resources :payments, only: [:new, :create]
+
+
 end
