@@ -5,15 +5,7 @@ class OrdersController < ApplicationController
     @cart = session[:cart] || {} # Отримуємо дані кошика із сесії
     @products = Product.where(id: @cart.keys) # Завантажуємо товари з бази за ID у кошику
     @total_price = calculate_total_price(@products, @cart) # Розраховуємо загальну суму
-    @branches = fetch_nova_poshta_branches
   end
-
-  private
-
-  def calculate_total_price(products, cart)
-    products.sum { |product| product.price * cart[product.id.to_s].to_i }
-  end
-
 
   def create
     @order = Order.new(order_params)
@@ -28,34 +20,18 @@ class OrdersController < ApplicationController
 
   private
 
+  # Метод для розрахунку загальної суми
+  def calculate_total_price(products, cart)
+    products.sum { |product| product.price * cart[product.id.to_s].to_i }
+  end
+
   # Метод для отримання поточного користувача
   def current_user
     @current_user ||= User.find_by(id: session[:user_id])
   end
 
-  # Метод для отримання відділень Нової Пошти через API
-  def fetch_nova_poshta_branches
-    Rails.cache.fetch("nova_poshta_branches", expires_in: 12.hours) do
-      api_key = 'e230aeb058a424ca3bd19ad0670ec7cd'
-      url = 'https://api.novaposhta.ua/v2.0/json/'
-      response = HTTP.post(url, json: {
-        "apiKey": api_key,
-        "modelName": "AddressGeneral",
-        "calledMethod": "getWarehouses",
-        "methodProperties": {}
-      })
-
-      data = JSON.parse(response.body.to_s)
-      data['data'].map { |branch| branch['Description'] }
-    end
-  rescue StandardError => e
-    Rails.logger.error("Помилка отримання відділень: #{e.message}")
-    []
-  end
-
   # Параметри форми замовлення
   def order_params
-    params.require(:order).permit(:name, :surname, :phone, :email, :delivery_option, :branch, :street, :building, :apartment)
+    params.require(:order).permit(:name, :surname, :phone, :email, :street, :building, :apartment)
   end
-
 end
