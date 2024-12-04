@@ -53,7 +53,7 @@ class OrdersController < ApplicationController
 
   # Параметри форми замовлення
   def order_params
-    params.require(:order).permit(:name, :surname, :phone, :email, :delivery_option, :branch)
+    params.require(:order).permit(:name, :surname, :phone, :email, :delivery_option, :branch, :street, :building, :apartment)
   end
 
 end

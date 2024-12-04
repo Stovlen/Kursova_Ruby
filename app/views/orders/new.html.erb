@@ -39,7 +39,25 @@
     <legend>Доставка</legend>
     <div>
       <label>Нова Пошта</label>
-      <%= f.select :branch, @branches, prompt: "Оберіть відділення Нової Пошти" %>
+      <%= f.select :branch, @branches, prompt: "Оберіть відділення Нової Пошти", class: "form-control" %>
+    </div>
+
+    <hr>
+
+    <div>
+      <label>Кур'єрська доставка по місту</label>
+      <div>
+        <%= f.label :street, "Вулиця:" %>
+        <%= f.text_field :street, class: "form-control" %>
+      </div>
+      <div>
+        <%= f.label :building, "Будинок:" %>
+        <%= f.text_field :building, class: "form-control" %>
+      </div>
+      <div>
+        <%= f.label :apartment, "Квартира:" %>
+        <%= f.text_field :apartment, class: "form-control" %>
+      </div>
     </div>
   </fieldset>
 
