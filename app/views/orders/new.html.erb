@@ -35,6 +35,14 @@
     </div>
   </fieldset>
 
+  <fieldset>
+    <legend>Доставка</legend>
+    <div>
+      <label>Нова Пошта</label>
+      <%= f.select :branch, @branches, prompt: "Оберіть відділення Нової Пошти" %>
+    </div>
+  </fieldset>
+
   <div>
     <%= f.submit 'Оформити замовлення', class: 'btn btn-primary' %>
   </div>
