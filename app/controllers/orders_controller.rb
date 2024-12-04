@@ -35,17 +35,19 @@ class OrdersController < ApplicationController
 
   # Метод для отримання відділень Нової Пошти через API
   def fetch_nova_poshta_branches
-    api_key = 'e230aeb058a424ca3bd19ad0670ec7cd' # Вставте ваш реальний API-ключ
-    url = 'https://api.novaposhta.ua/v2.0/json/'
-    response = HTTP.post(url, json: {
-      "apiKey": api_key,
-      "modelName": "AddressGeneral",
-      "calledMethod": "getWarehouses",
-      "methodProperties": {}
-    })
+    Rails.cache.fetch("nova_poshta_branches", expires_in: 12.hours) do
+      api_key = 'e230aeb058a424ca3bd19ad0670ec7cd'
+      url = 'https://api.novaposhta.ua/v2.0/json/'
+      response = HTTP.post(url, json: {
+        "apiKey": api_key,
+        "modelName": "AddressGeneral",
+        "calledMethod": "getWarehouses",
+        "methodProperties": {}
+      })
 
-    data = JSON.parse(response.body.to_s)
-    data['data'].map { |branch| branch['Description'] } # Повертаємо список відділень
+      data = JSON.parse(response.body.to_s)
+      data['data'].map { |branch| branch['Description'] }
+    end
   rescue StandardError => e
     Rails.logger.error("Помилка отримання відділень: #{e.message}")
     []
