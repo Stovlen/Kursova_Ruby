@@ -38,19 +38,17 @@
   <fieldset>
     <legend>Доставка</legend>
     <div>
-      <label>Кур'єрська доставка по місту</label>
-      <div>
-        <%= f.label :street, "Вулиця:" %>
-        <%= f.text_field :street, class: "form-control" %>
-      </div>
-      <div>
-        <%= f.label :building, "Будинок:" %>
-        <%= f.text_field :building, class: "form-control" %>
-      </div>
-      <div>
-        <%= f.label :apartment, "Квартира:" %>
-        <%= f.text_field :apartment, class: "form-control" %>
-      </div>
+      <%= f.label :delivery_method, "Варіант доставки" %>
+      <%= f.select :delivery_method, ["Нова Пошта", "Укрпошта"], {}, id: "delivery-method-select" %>
+    </div>
+    <div>
+      <%= f.label :city, "Місто" %>
+      <%= f.text_field :city, required: true, id: "city-field" %>
+    </div>
+    <div>
+      <%= f.label :branch_number, "Номер відділення" %>
+      <%= f.text_field :branch_number, required: true, id: "branch-number-field", title: "Введіть номер відділення", pattern: "\\d*", maxlength: 5 %>
+
     </div>
   </fieldset>
 

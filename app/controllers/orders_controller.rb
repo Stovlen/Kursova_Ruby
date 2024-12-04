@@ -34,4 +34,15 @@ class OrdersController < ApplicationController
   def order_params
     params.require(:order).permit(:name, :surname, :phone, :email, :street, :building, :apartment)
   end
+
+  def valid_branch_number?
+    case @order.delivery_method
+    when "Укрпошта"
+      @order.branch_number.to_s.match?(/^\d{5}$/)
+    when "Нова Пошта"
+      @order.branch_number.to_s.match?(/^\d+$/)
+    else
+      false
+    end
+  end
 end
