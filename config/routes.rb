@@ -51,6 +51,7 @@ Rails.application.routes.draw do
     resources :users, only: [:new, :create]
     resources :feedbacks, only: [:index]
     resources :reviews, only: [:update]
+    resources :orders, only: [:index, :show]
   end
 
   resources :payments, only: [:new, :create]

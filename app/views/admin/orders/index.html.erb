@@ -1,0 +1,26 @@
+<h1>Список замовлень</h1>
+
+<table>
+  <thead>
+  <tr>
+    <th>ID</th>
+    <th>Ім'я</th>
+    <th>Прізвище</th>
+    <th>Телефон</th>
+    <th>Дата створення</th>
+    <th>Деталі</th>
+  </tr>
+  </thead>
+  <tbody>
+  <% @orders.each do |order| %>
+    <tr>
+      <td><%= order.id %></td>
+      <td><%= order.name %></td>
+      <td><%= order.surname %></td>
+      <td><%= order.phone %></td>
+      <td><%= order.created_at.strftime('%d-%m-%Y %H:%M') %></td>
+      <td><%= link_to 'Переглянути', admin_order_path(order), class: 'btn btn-primary' %></td>
+    </tr>
+  <% end %>
+  </tbody>
+</table>
