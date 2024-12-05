@@ -3,10 +3,19 @@
 <p><strong>Ім'я:</strong> <%= @order.name %></p>
 <p><strong>Прізвище:</strong> <%= @order.surname %></p>
 <p><strong>Телефон:</strong> <%= @order.phone %></p>
-<p><strong>Email:</strong> <%= @order.email.presence || "Не вказано" %></p>
+<p><strong>Email:</strong> <%= @order.email.presence || 'Не вказано' %></p>
 <p><strong>Метод доставки:</strong> <%= @order.delivery_method %></p>
 <p><strong>Місто:</strong> <%= @order.city %></p>
-<p><strong>Номер відділення:</strong> <%= @order.branch_number.presence || "Не вказано" %></p>
+<p><strong>Номер відділення:</strong> <%= @order.branch_number.presence || 'Не вказано' %></p>
 <p><strong>Дата створення:</strong> <%= @order.created_at.strftime('%d-%m-%Y %H:%M') %></p>
+
+<h2>Товари</h2>
+<ul>
+  <% @order.order_items.each do |item| %>
+    <li>
+      <%= item.product.name %> - <%= item.quantity %> шт.
+    </li>
+  <% end %>
+</ul>
 
 <%= link_to 'Назад до списку замовлень', admin_orders_path, class: 'btn btn-primary', style: 'pointer-events: auto; cursor: pointer; color: white;' %>

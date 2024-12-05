@@ -9,19 +9,22 @@ class OrdersController < ApplicationController
   def create
     @cart = session[:cart] || {}
     @products = Product.where(id: @cart.keys)
-    @total_price = calculate_total_price(@products, @cart)
 
     @order = Order.new(order_params)
 
     if @order.save
-      session[:cart] = {} # Очищаємо кошик після створення замовлення
-      session[:total_price] = @total_price # Зберігаємо загальну суму в сесії для оплати
+      @cart.each do |product_id, quantity|
+        product = Product.find(product_id)
+        @order.order_items.create(product: product, quantity: quantity)
+      end
+      session[:cart] = {} # Очищаємо кошик після оформлення замовлення
       redirect_to new_payment_path, notice: 'Замовлення створено. Перейдіть до оплати.'
     else
-      flash.now[:alert] = 'Помилка створення замовлення. Перевірте введені дані.'
+      flash.now[:alert] = 'Помилка створення замовлення. Перевірте дані.'
       render :new
     end
   end
+
 
   private
 
@@ -30,6 +33,16 @@ class OrdersController < ApplicationController
   end
 
   def order_params
-    params.require(:order).permit(:name, :surname, :phone, :email, :delivery_method, :city, :branch_number)
+    params.require(:order).permit(
+      :name,
+      :surname,
+      :phone,
+      :email,
+      :delivery_method,
+      :city,
+      :branch_number,
+      order_items_attributes: [:product_id, :quantity]
+    )
   end
+
 end
