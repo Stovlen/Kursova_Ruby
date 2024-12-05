@@ -1,23 +1,14 @@
 class PaymentsController < ApplicationController
+  def new
+    # Відображення форми оплати
+  end
 
   def create
-    # Логіка обробки платежу
-    if valid_payment?(payment_params)
-      redirect_to root_path, notice: 'Оплата пройшла успішно!'
-    else
-      flash.now[:alert] = 'Помилка оплати. Перевірте введені дані.'
-      render :new
-    end
+    # Простий сценарій: перенаправляємо на сторінку успіху
+    redirect_to payment_success_path, notice: 'Оплата пройшла успішно!'
   end
 
-  private
-
-  def payment_params
-    params.require(:payment).permit(:card_number, :expiry_date, :cvv, :send_receipt)
-  end
-
-  def valid_payment?(params)
-    # Простий валідатор для прикладу
-    params[:card_number].present? && params[:expiry_date].present? && params[:cvv].present?
+  def success
+    # Сторінка для підтвердження успішного замовлення
   end
 end

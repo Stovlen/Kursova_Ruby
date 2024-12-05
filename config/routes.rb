@@ -54,6 +54,7 @@ Rails.application.routes.draw do
   end
 
   resources :payments, only: [:new, :create]
+  get '/payment/success', to: 'payments#success', as: :payment_success
 
 
 end
