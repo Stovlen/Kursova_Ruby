@@ -26,11 +26,13 @@
       <%= f.text_field :surname, required: true %>
     </div>
     <div>
-      <%= f.label :phone, "Телефон:" %>
-      <%= f.telephone_field :phone, placeholder: "+380 (___) ___-____",
-                            required: true,
-                            class: "phone-input",
-                            pattern: "\\+380 \\(\\d{3}\\) \\d{3}-\\d{4}" %>
+      <%= f.label :phone, "Телефон" %>
+      <%= f.text_field :phone,
+                       required: true,
+                       maxlength: 10,
+                       pattern: "\\d{10}",
+                       title: "Номер телефону повинен містити рівно 10 цифр",
+                       class: "phone-input" %>
     </div>
     <div>
       <%= f.label :email, 'E-mail(необовязково):' %>
@@ -56,6 +58,6 @@
   </fieldset>
 
   <div>
-    <%= link_to 'Оформити замовлення', new_payment_path, class: 'btn btn-primary' %>
+    <%= link_to 'Перейти до оплати', new_payment_path, class: 'btn btn-primary' %>
   </div>
 <% end %>
