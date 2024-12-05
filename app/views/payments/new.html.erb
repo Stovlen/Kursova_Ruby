@@ -1,4 +1,5 @@
 <h1>Оплата товару</h1>
+<p>Сума до оплати: <strong><%= number_to_currency(session[:total_price], unit: "₴") %></strong></p>
 
 <%= form_with url: payments_path, method: :post, local: true do |f| %>
   <div class="form-group">

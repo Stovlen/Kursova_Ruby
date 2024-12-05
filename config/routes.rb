@@ -56,5 +56,7 @@ Rails.application.routes.draw do
   resources :payments, only: [:new, :create]
   get '/payment/success', to: 'payments#success', as: :payment_success
 
+  resources :orders, only: [:new, :create]
+
 
 end

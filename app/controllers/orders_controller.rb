@@ -1,48 +1,35 @@
 class OrdersController < ApplicationController
   def new
     @order = Order.new
-    @user_email = current_user&.email # Якщо користувач авторизований
     @cart = session[:cart] || {} # Отримуємо дані кошика із сесії
     @products = Product.where(id: @cart.keys) # Завантажуємо товари з бази за ID у кошику
     @total_price = calculate_total_price(@products, @cart) # Розраховуємо загальну суму
   end
 
   def create
+    @cart = session[:cart] || {}
+    @products = Product.where(id: @cart.keys)
+    @total_price = calculate_total_price(@products, @cart)
+
     @order = Order.new(order_params)
+
     if @order.save
-      session[:cart] = {} # Очищаємо кошик після замовлення
-      redirect_to root_path, notice: 'Замовлення успішно оформлено!'
+      session[:cart] = {} # Очищаємо кошик після створення замовлення
+      session[:total_price] = @total_price # Зберігаємо загальну суму в сесії для оплати
+      redirect_to new_payment_path, notice: 'Замовлення створено. Перейдіть до оплати.'
     else
-      flash.now[:alert] = 'Помилка оформлення замовлення. Перевірте введені дані.'
+      flash.now[:alert] = 'Помилка створення замовлення. Перевірте введені дані.'
       render :new
     end
   end
 
   private
 
-  # Метод для розрахунку загальної суми
   def calculate_total_price(products, cart)
     products.sum { |product| product.price * cart[product.id.to_s].to_i }
   end
 
-  # Метод для отримання поточного користувача
-  def current_user
-    @current_user ||= User.find_by(id: session[:user_id])
-  end
-
-  # Параметри форми замовлення
   def order_params
     params.require(:order).permit(:name, :surname, :phone, :email, :delivery_method, :city, :branch_number)
-  end
-
-  def valid_branch_number?
-    case @order.delivery_method
-    when "Укрпошта"
-      @order.branch_number.to_s.match?(/^\d{5}$/)
-    when "Нова Пошта"
-      @order.branch_number.to_s.match?(/^\d+$/)
-    else
-      false
-    end
   end
 end
