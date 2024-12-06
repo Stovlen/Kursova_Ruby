@@ -4,6 +4,7 @@ class OrdersController < ApplicationController
     @cart = session[:cart] || {} # Отримуємо дані кошика із сесії
     @products = Product.where(id: @cart.keys) # Завантажуємо товари з бази за ID у кошику
     @total_price = calculate_total_price(@products, @cart) # Розраховуємо загальну суму
+    @user_email = current_user&.email # Передаємо email поточного користувача, якщо він авторизований
   end
 
   def create
@@ -25,8 +26,12 @@ class OrdersController < ApplicationController
     end
   end
 
-
   private
+
+  # Метод для отримання поточного користувача
+  def current_user
+    @current_user ||= User.find_by(id: session[:user_id])
+  end
 
   def calculate_total_price(products, cart)
     products.sum { |product| product.price * cart[product.id.to_s].to_i }
@@ -44,5 +49,4 @@ class OrdersController < ApplicationController
       order_items_attributes: [:product_id, :quantity]
     )
   end
-
 end
