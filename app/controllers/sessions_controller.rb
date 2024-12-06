@@ -17,6 +17,7 @@ class SessionsController < ApplicationController
 
   def destroy
     session[:user_id] = nil
+    session[:cart] = {} # Очищення кошика
     redirect_to root_path, notice: 'Ви вийшли з профілю.'
   end
 end
