@@ -1,41 +1,45 @@
-<h1>Оплата товару</h1>
-<p>Сума до оплати: <strong><%= number_to_currency(@total_price, unit: "₴") %></strong></p>
+<div class="container d-flex justify-content-center">
+  <div class="w-50">
+    <h1 class="text-center">Оплата товару</h1>
+    <p>Сума до оплати: <strong><%= number_to_currency(@total_price, unit: "₴") %></strong></p>
 
-<%= form_with url: payments_path, method: :post, local: true do |f| %>
-  <div class="form-group">
-    <%= f.label :card_number, "Номер картки" %>
-    <%= f.text_field :card_number,
-                     placeholder: "0000 0000 0000 0000",
-                     required: true,
-                     maxlength: 19,
-                     pattern: "\\d{4} \\d{4} \\d{4} \\d{4}",
-                     title: "Номер картки повинен бути у форматі: 0000 0000 0000 0000",
-                     class: "form-control" %>
-  </div>
-
-  <div class="form-group">
-    <%= f.label :expiry_date, "Термін дії" %>
-    <%= f.text_field :expiry_date,
-                     placeholder: "MM/YY",
-                     required: true,
-                     maxlength: 5,
-                     pattern: "(0[1-9]|1[0-2])\\/\\d{2}",
-                     title: "Термін дії повинен бути у форматі MM/YY",
-                     class: "form-control" %>
-  </div>
-
-  <div class="form-group">
-    <%= f.label :cvv, "CVV2" %>
-    <%= f.password_field :cvv,
-                         placeholder: "...",
+    <%= form_with url: payments_path, method: :post, local: true do |f| %>
+      <div class="form-group mb-3">
+        <%= f.label :card_number, "Номер картки" %>
+        <%= f.text_field :card_number,
+                         placeholder: "0000 0000 0000 0000",
                          required: true,
-                         maxlength: 3,
-                         pattern: "\\d{3}",
-                         title: "CVV повинен складатися з 3 цифр",
+                         maxlength: 19,
+                         pattern: "\\d{4} \\d{4} \\d{4} \\d{4}",
+                         title: "Номер картки повинен бути у форматі: 0000 0000 0000 0000",
                          class: "form-control" %>
-  </div>
+      </div>
 
-  <div>
-    <%= f.submit "Оплатити", class: "btn btn-success btn-block" %>
+      <div class="form-group mb-3">
+        <%= f.label :expiry_date, "Термін дії" %>
+        <%= f.text_field :expiry_date,
+                         placeholder: "MM/YY",
+                         required: true,
+                         maxlength: 5,
+                         pattern: "(0[1-9]|1[0-2])\\/\\d{2}",
+                         title: "Термін дії повинен бути у форматі MM/YY",
+                         class: "form-control" %>
+      </div>
+
+      <div class="form-group mb-3">
+        <%= f.label :cvv, "CVV2" %>
+        <%= f.password_field :cvv,
+                             placeholder: "...",
+                             required: true,
+                             maxlength: 3,
+                             pattern: "\\d{3}",
+                             title: "CVV повинен складатися з 3 цифр",
+                             class: "form-control" %>
+      </div>
+
+      <div class="d-grid">
+        <%= f.submit "Оплатити", class: "btn btn-success" %>
+      </div>
+    <% end %>
   </div>
-<% end %>
+</div>
