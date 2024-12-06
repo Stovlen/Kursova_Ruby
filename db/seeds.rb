@@ -1,12 +1,12 @@
 # db/seeds.rb
-#Product.destroy_all
+Product.destroy_all
 
 Product.create([
                  {
                    name: "Курага",
                    description: "Соковита та корисна курага",
                    price: 150.00,
-                   image_url: "Apple.jpeg",
+                   image_url: "kuraga1.jpeg",
                    category: "Абрикоси",
                    proteins: 2.5,
                    fats: 0.5,
@@ -20,7 +20,7 @@ Product.create([
                    name: "Чорнослив",
                    description: "Натуральний чорнослив без додавання цукру",
                    price: 180.00,
-                   image_url: "2221.jpg",
+                   image_url: "чорнослив.jpg",
                    category: "Сливи",
                    proteins: 2.2,
                    fats: 0.3,
