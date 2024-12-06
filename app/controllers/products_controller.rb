@@ -2,12 +2,19 @@ class ProductsController < ApplicationController
   def index
     @products = Product.all
 
+    # Пошук по назві товару
     if params[:query].present?
-      @products = @products.where("name ILIKE ? OR category ILIKE ?", "%#{params[:query]}%", "%#{params[:query]}%")
+      @products = @products.where("name ILIKE ?", "%#{params[:query]}%")
     end
 
-    if params[:category].present?
-      @products = @products.where(category: params[:category])
+    # Фільтр за наявністю цукру
+    if params[:sugar_content].present?
+      @products = @products.where(sugar_content: params[:sugar_content])
+    end
+
+    # Фільтр за країною виробником
+    if params[:country].present?
+      @products = @products.where(country: params[:country])
     end
   end
 

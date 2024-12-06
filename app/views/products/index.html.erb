@@ -20,11 +20,26 @@
     <!-- Панель фільтрів -->
     <div class="col-md-3 mb-4">
       <h4>Фільтри</h4>
-      <ul class="list-group">
-        <li class="list-group-item"><%= link_to "Усі", root_path, class: "text-decoration-none" %></li>
-        <li class="list-group-item"><%= link_to "Абрикоси", root_path(category: "Абрикоси"), class: "text-decoration-none" %></li>
-        <li class="list-group-item"><%= link_to "Сливи", root_path(category: "Сливи"), class: "text-decoration-none" %></li>
-      </ul>
+      <div class="mb-3">
+        <h5>Наявність цукру</h5>
+        <ul class="list-group">
+          <li class="list-group-item"><%= link_to "Усі", root_path, class: "text-decoration-none" %></li>
+          <li class="list-group-item"><%= link_to "З додаванням цукру", root_path(sugar_content: "З додаванням цукру"), class: "text-decoration-none" %></li>
+          <li class="list-group-item"><%= link_to "Без цукру", root_path(sugar_content: "Без цукру"), class: "text-decoration-none" %></li>
+        </ul>
+      </div>
+
+      <div class="mb-3">
+        <h5>Країна виробник</h5>
+        <ul class="list-group">
+          <li class="list-group-item"><%= link_to "Усі", root_path, class: "text-decoration-none" %></li>
+          <% Product.distinct.pluck(:country).each do |country| %>
+            <li class="list-group-item">
+              <%= link_to country, root_path(country: country), class: "text-decoration-none" %>
+            </li>
+          <% end %>
+        </ul>
+      </div>
     </div>
 
     <!-- Сітка товарів -->
