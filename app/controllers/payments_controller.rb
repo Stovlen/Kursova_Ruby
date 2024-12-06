@@ -1,6 +1,6 @@
 class PaymentsController < ApplicationController
   def new
-    # Відображення форми оплати
+    @total_price = session[:total_price] || 0
   end
 
   def create
