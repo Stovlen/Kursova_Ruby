@@ -12,46 +12,73 @@
 
 <body>
 <header>
-  <div class="header-container">
-    <h1><%= link_to "Магазин Сухофруктів", root_path %></h1>
-
-    <nav class="header-navigation">
-      <% if current_user %>
-        <% if current_user.role == "admin" || current_user.admin? %>
-          <span>Вітаємо, Адмін!</span>
-          <%= link_to "Адмін-панель", admin_dashboard_path, class: "button" %>
-        <% else %>
-          <span>Вітаємо, <%= current_user.name %>!</span>
-        <% end %>
-
-        <% unless current_page?(root_path) %>
-          <%= link_to "На головну", root_path, class: "button" %>
-        <% end %>
-        <%= link_to "Кошик", cart_path, class: "button" %>
-        <%= link_to "Зв’язок", feedback_path, class: "button" %>
-        <%= button_to "Вийти", logout_path, method: :delete, class: "button" %>
-      <% else %>
-        <%= link_to "Увійти", new_session_path, class: "button" %>
-        <%= link_to "Зареєструватися", register_path, class: "button" %>
-        <%= link_to "Кошик", cart_path, class: "button" %>
-      <% end %>
-    </nav>
-  </div>
+  <!-- Навігаційна панель -->
+  <nav class="navbar navbar-expand-lg" style="background-color: #ff9800;">
+    <div class="container">
+      <a class="navbar-brand text-white" href="<%= root_path %>">Магазин Сухофруктів</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto">
+          <% if current_user %>
+            <% if current_user.role == "admin" || current_user.admin? %>
+              <li class="nav-item">
+                <span class="nav-link text-white">Вітаємо, Адмін!</span>
+              </li>
+              <li class="nav-item">
+                <%= link_to "Адмін-панель", admin_dashboard_path, class: "nav-link text-white" %>
+              </li>
+            <% else %>
+              <li class="nav-item">
+                <span class="nav-link text-white">Вітаємо, <%= current_user.name %>!</span>
+              </li>
+            <% end %>
+            <% unless current_page?(root_path) %>
+              <li class="nav-item">
+                <%= link_to "На головну", root_path, class: "nav-link text-white" %>
+              </li>
+            <% end %>
+            <li class="nav-item">
+              <%= link_to "Кошик", cart_path, class: "nav-link text-white" %>
+            </li>
+            <li class="nav-item">
+              <%= link_to "Зв’язок", feedback_path, class: "nav-link text-white" %>
+            </li>
+            <li class="nav-item">
+              <%= button_to "Вийти", logout_path, method: :delete, class: "btn btn-danger btn-sm ms-2" %>
+            </li>
+          <% else %>
+            <li class="nav-item">
+              <%= link_to "Увійти", new_session_path, class: "nav-link text-white" %>
+            </li>
+            <li class="nav-item">
+              <%= link_to "Зареєструватися", register_path, class: "nav-link text-white" %>
+            </li>
+            <li class="nav-item">
+              <%= link_to "Кошик", cart_path, class: "nav-link text-white" %>
+            </li>
+          <% end %>
+        </ul>
+      </div>
+    </div>
+  </nav>
 </header>
 
-<main>
+<main class="container my-5">
   <%= yield %>
 </main>
 
-<footer class="footer">
-  <div class="footer-container">
+<footer class="footer py-4" style="background-color: #e65100; color: white;">
+  <div class="container text-center">
     <p>&copy; <%= Time.now.year %> Магазин Сухофруктів. Всі права захищені.</p>
-    <ul class="footer-links">
-      <li><%= link_to "Про нас", about_path %></li>
-      <li><%= link_to "Контакти", contact_path %></li>
-      <li><%= link_to "Політика конфіденційності", privacy_path %></li>
+    <ul class="list-inline">
+      <li class="list-inline-item"><a href="#" class="text-white text-decoration-none">Про нас</a></li>
+      <li class="list-inline-item"><a href="#" class="text-white text-decoration-none">Контакти</a></li>
+      <li class="list-inline-item"><a href="#" class="text-white text-decoration-none">Політика конфіденційності</a></li>
     </ul>
   </div>
 </footer>
 </body>
 </html>
+

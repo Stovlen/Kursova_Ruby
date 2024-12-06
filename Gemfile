@@ -15,6 +15,10 @@ gem 'bcrypt', '~> 3.1.7'
 
 gem 'http'
 
+gem "bootstrap", "~> 5.3"
+
+gem "sassc-rails"
+
 gem 'bootsnap', require: false
 
 # Use the Puma web server [https://github.com/puma/puma]

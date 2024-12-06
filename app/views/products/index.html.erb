@@ -1,37 +1,54 @@
-<h1>Інтернет-магазин</h1>
+<h1 class="text-center my-4">Інтернет-магазин</h1>
 
-<div class="search-bar">
-  <%= form_with url: root_path, method: :get, local: true do |form| %>
-    <%= form.text_field :query, placeholder: "Пошук товарів", class: "search-input" %>
-    <%= form.submit "🔍", class: "search-button" %>
-  <% end %>
-</div>
-
-<% if params[:query].present? %>
-  <p>По запиту «<%= params[:query] %>» знайшлося <%= @products.count %> товарів</p>
-<% end %>
-
-<div class="filters">
-  <h3>Фільтри</h3>
-  <ul>
-    <li><%= link_to "Усі", root_path %></li>
-    <li><%= link_to "Абрикоси", root_path(category: "Абрикоси") %></li>
-    <li><%= link_to "Сливи", root_path(category: "Сливи") %></li>
-  </ul>
-</div>
-
-<div class="products-grid">
-  <% @products.each do |product| %>
-    <div class="product-card">
-      <%= link_to image_tag(product.image_url, alt: product.name), product_path(product) %>
-      <h3><%= link_to product.name, product_path(product) %></h3>
-      <p><%= number_to_currency(product.price, unit: "₴") %></p>
-
-      <% if session[:cart] && session[:cart][product.id.to_s] %>
-        <%= button_to "У кошику (#{session[:cart][product.id.to_s]})", add_to_cart_path(product_id: product.id), method: :post, class: "btn btn-warning" %>
-      <% else %>
-        <%= button_to "Додати до кошика", add_to_cart_path(product_id: product.id), method: :post, class: "btn btn-success" %>
+<div class="container">
+  <!-- Пошукова панель -->
+  <div class="row mb-4">
+    <div class="col-12">
+      <%= form_with url: root_path, method: :get, local: true, class: "d-flex" do |form| %>
+        <%= form.text_field :query, placeholder: "Пошук товарів", class: "form-control me-2" %>
+        <%= form.submit "🔍", class: "btn btn-primary" %>
       <% end %>
     </div>
+  </div>
+
+  <!-- Відображення результатів пошуку -->
+  <% if params[:query].present? %>
+    <p class="text-muted">По запиту «<%= params[:query] %>» знайшлося <%= @products.count %> товарів</p>
   <% end %>
+
+  <div class="row">
+    <!-- Панель фільтрів -->
+    <div class="col-md-3 mb-4">
+      <h4>Фільтри</h4>
+      <ul class="list-group">
+        <li class="list-group-item"><%= link_to "Усі", root_path, class: "text-decoration-none" %></li>
+        <li class="list-group-item"><%= link_to "Абрикоси", root_path(category: "Абрикоси"), class: "text-decoration-none" %></li>
+        <li class="list-group-item"><%= link_to "Сливи", root_path(category: "Сливи"), class: "text-decoration-none" %></li>
+      </ul>
+    </div>
+
+    <!-- Сітка товарів -->
+    <div class="col-md-9">
+      <div class="row g-4">
+        <% @products.each do |product| %>
+          <div class="col-md-4">
+            <div class="card h-100">
+              <%= link_to image_tag(product.image_url, alt: product.name, class: "card-img-top"), product_path(product) %>
+              <div class="card-body">
+                <h5 class="card-title"><%= link_to product.name, product_path(product), class: "text-decoration-none" %></h5>
+                <p class="card-text"><%= number_to_currency(product.price, unit: "₴") %></p>
+              </div>
+              <div class="card-footer bg-white">
+                <% if session[:cart] && session[:cart][product.id.to_s] %>
+                  <%= button_to "У кошику (#{session[:cart][product.id.to_s]})", add_to_cart_path(product_id: product.id), method: :post, class: "btn btn-warning w-100" %>
+                <% else %>
+                  <%= button_to "Додати до кошика", add_to_cart_path(product_id: product.id), method: :post, class: "btn btn-success w-100" %>
+                <% end %>
+              </div>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
 </div>

@@ -1,5 +1,5 @@
-# db/seeds.rb
-Product.destroy_all
+OrderItem.destroy_all # Спочатку очищаємо order_items
+Product.destroy_all # Потім очищаємо продукти
 
 Product.create([
                  {
@@ -29,5 +29,19 @@ Product.create([
                    country: "Україна",
                    processing_type: "Сушені",
                    sugar_content: "З додаванням цукру"
+                 },
+                 {
+                   name: "Манго",
+                   description: "Натуральний манго без додавання цукру",
+                   price: 270.00,
+                   image_url: "mango.jpg",
+                   category: "Сливи",
+                   proteins: 5.2,
+                   fats: 1.4,
+                   carbs: 68.8,
+                   energy: 340,
+                   country: "Китай",
+                   processing_type: "Сушені",
+                   sugar_content: "Без цукру"
                  }
                ])
